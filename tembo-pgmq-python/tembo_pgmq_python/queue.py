@@ -177,7 +177,11 @@ class PGMQueue:
 
         return row[0][0]
 
+<<<<<<< HEAD
     def metrics(self, queue: str) -> QueueMetrics:
+=======
+    def get_queue_stats(self, queue: str) -> QueueMetrics:
+>>>>>>> cc7a078 (feat: support for metrics with test and docs)
         with self.pool.connection() as conn:
             result = conn.execute("SELECT * FROM pgmq.metrics(%s);", [queue]).fetchone()
         return QueueMetrics(
@@ -189,6 +193,7 @@ class PGMQueue:
             scrape_time=result[5],
         )
 
+<<<<<<< HEAD
     def metrics_all(self) -> List[QueueMetrics]:
         with self.pool.connection() as conn:
             results = conn.execute("SELECT * FROM pgmq.metrics_all();").fetchall()
@@ -203,3 +208,7 @@ class PGMQueue:
             )
             for row in results
         ]
+=======
+    def metrics(self, queue: str) -> QueueMetrics:
+        return self.get_queue_stats(queue)
+>>>>>>> cc7a078 (feat: support for metrics with test and docs)
