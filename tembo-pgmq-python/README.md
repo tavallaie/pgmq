@@ -139,6 +139,9 @@ print(f"Scrape time: {metrics.scrape_time}")
 print(f"Queue length: {queue.metrics('my_queue').queue_length}")
 print(f"Total messages: {queue.metrics('my_queue').total_messages}")
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 9233a1e (feat: support for metrics with test and docs)
 ```
 
 ### Get metrics for all queues
@@ -152,6 +155,9 @@ for metrics in all_metrics:
     print(f"Oldest message age (seconds): {metrics.oldest_msg_age_sec}")
     print(f"Total messages: {metrics.total_messages}")
     print(f"Scrape time: {metrics.scrape_time}")
+<<<<<<< HEAD
 =======
 >>>>>>> cc7a078 (feat: support for metrics with test and docs)
+=======
+>>>>>>> 9233a1e (feat: support for metrics with test and docs)
 ```
