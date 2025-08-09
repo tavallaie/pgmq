@@ -67,6 +67,44 @@ jobs:
         # ensure migration cache is up to date
         run: cargo sqlx prepare --check
 
+  test_sql_install:
+    name: Test SQL Installation
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+    env:
+      DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/postgres"
+      SQLX_OFFLINE: 1
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Rust stable toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+      - uses: Swatinem/rust-cache@v2
+      - name: Set PGMQ_VERSION
+        run: echo "PGMQ_VERSION=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+      - name: Wait for PostgreSQL
+        run: |
+          until pg_isready -h localhost -p 5432 -U postgres; do
+            echo "Waiting for PostgreSQL..."
+            sleep 2
+          done
+      - name: Run SQL installation test
+        run: cargo test test_sql_lifecycle --release --features cli -- --ignored
+
   publish:
     name: Publish or validate crate
     runs-on: ubuntu-latest
