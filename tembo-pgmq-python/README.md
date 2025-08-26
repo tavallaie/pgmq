@@ -23,7 +23,7 @@ Dependencies:
 ### Start a Postgres Instance with the Tembo extension installed
 
 ```bash
-docker run -d --name postgres -e POSTGRES_PASSWORD=postgres -p 5432:5432 quay.io/tembo/pg16-pgmq:latest
+docker run -d --name postgres -e POSTGRES_PASSWORD=postgres -p 5432:5432 quay.io/tembo/pg17-pgmq:latest
 ```
 
 ### Using Environment Variables
@@ -135,7 +135,7 @@ for message in read_messages:
     print(message)
 ```
 
-This method will continue polling until it either finds the specified number of messages (`qty`) or the `max_poll_seconds` duration is reached. The `poll_interval_ms` parameter controls the interval between successive polls, allowing you to avoid hammering the database with continuous queries.
+This method will continue polling until it retrieves any messages, with a maximum of (`qty`) messages in a single poll, or until the `max_poll_seconds` duration is reached. The `poll_interval_ms` parameter controls the interval between successive polls, allowing you to avoid hammering the database with continuous queries.
 
 ### Archive the message after we're done with it
 

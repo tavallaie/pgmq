@@ -2,15 +2,14 @@
 
 A lightweight message queue. Like [AWS SQS](https://aws.amazon.com/sqs/) and [RSMQ](https://github.com/smrchy/rsmq) but on Postgres.
 
-[![Tembo Cloud Try Free](https://tembo.io/tryFreeButton.svg)](https://cloud.tembo.io/sign-up)
-
-[![Static Badge](https://img.shields.io/badge/%40tembo-community?logo=slack&label=slack)](https://join.slack.com/t/tembocommunity/shared_invite/zt-293gc1k0k-3K8z~eKW1SEIfrqEI~5_yw)
 [![OSSRank](https://shields.io/endpoint?url=https://ossrank.com/shield/3809)](https://ossrank.com/p/3809)
 [![PGXN version](https://badge.fury.io/pg/pgmq.svg)](https://pgxn.org/dist/pgmq/)
 
-**Documentation**: https://tembo.io/pgmq/
+**Documentation**: https://pgmq.github.io/pgmq/
 
-**Source**: https://github.com/tembo-io/pgmq
+**Source**: https://github.com/pgmq/pgmq
+
+<img src="https://github.com/user-attachments/assets/3e6d23c5-83fa-4c4a-98ae-77f305e3cd5c" width="75%" alt="pgmq demo gif">
 
 ## Features
 
@@ -20,15 +19,12 @@ A lightweight message queue. Like [AWS SQS](https://aws.amazon.com/sqs/) and [RS
 - Messages stay in the queue until explicitly removed
 - Messages can be archived, instead of deleted, for long-term retention and replayability
 
-## Support
-
-Postgres 12-16.
+Supported on Postgres 14-17.
 
 ## Table of Contents
 
 - [Postgres Message Queue (PGMQ)](#postgres-message-queue-pgmq)
   - [Features](#features)
-  - [Support](#support)
   - [Table of Contents](#table-of-contents)
   - [Installation](#installation)
     - [Updating](#updating)
@@ -49,13 +45,13 @@ Postgres 12-16.
 
 ## Installation
 
-The fastest way to get started is by running the Tembo Docker image, where PGMQ comes pre-installed in Postgres.
+The fastest way to get started is by running the Docker image, where PGMQ comes pre-installed in Postgres.
 
 ```bash
-docker run -d --name pgmq-postgres -e POSTGRES_PASSWORD=postgres -p 5432:5432 quay.io/tembo/pg16-pgmq:latest
+docker run -d --name pgmq-postgres -e POSTGRES_PASSWORD=postgres -p 5432:5432 ghcr.io/pgmq/pg17-pgmq:v1.5.1
 ```
 
-If you'd like to build from source, you can follow the instructions in [CONTRIBUTING.md](CONTRIBUTING.md).
+If you'd like to install PGMQ into an existing Postgres instance, refer to [INSTALLATION.md](https://github.com/pgmq/pgmq/blob/main/INSTALLATION.md).
 
 ### Updating
 
@@ -63,8 +59,8 @@ To update PGMQ versions, follow the instructions in [UPDATING.md](pgmq-extension
 
 ## Client Libraries
 
-- [Rust](https://github.com/tembo-io/pgmq/tree/main/pgmq-rs)
-- [Python (only for psycopg3)](https://github.com/tembo-io/pgmq/tree/main/tembo-pgmq-python)
+- [Rust](https://github.com/pgmq/pgmq/tree/main/pgmq-rs)
+- [Python (only for psycopg3)](https://github.com/pgmq/pgmq/tree/main/tembo-pgmq-python)
 
 Community
 
@@ -75,10 +71,12 @@ Community
 - [Java (Spring Boot)](https://github.com/adamalexandru4/pgmq-spring)
 - [Kotlin JVM (JDBC)](https://github.com/vdsirotkin/pgmq-kotlin-jvm)
 - [Javascript (NodeJs)](https://github.com/Muhammad-Magdi/pgmq-js)
-- [TypeScript (NodeJs](https://github.com/waitingsong/pgmq-js/tree/main/packages/pgmq-js) + [Midway.js](https://midwayjs.org/))
+- [TypeScript (NodeJs](https://github.com/waitingsong/pgmq-js) + [Midway.js](https://midwayjs.org/))
 - [TypeScript (Deno)](https://github.com/tmountain/deno-pgmq)
 - [.NET](https://github.com/brianpursley/Npgmq)
 - [Python (with SQLAlchemy)](https://github.com/jason810496/pgmq-sqlalchemy)
+- [REST-API (Bun + Elysia)](https://github.com/eichenroth/pgmq-rest)
+- [TypeScript (NodeJs + Prisma)](https://github.com/dvlkv/prisma-pgmq) 
 
 ## SQL Examples
 
@@ -329,7 +327,7 @@ Partitions behavior is configured at the time queues are created, via `pgmq.crea
 
 In order for automatic partition maintenance to take place, several settings must be added to the `postgresql.conf` file, which is typically located in the postgres `DATADIR`.
 `pg_partman_bgw.interval`
-in `postgresql.conf`. Below are the default configuration values set in Tembo docker images.
+in `postgresql.conf`. Below are the default configuration values set in pgmq docker images.
 
 Add the following to `postgresql.conf`. Note, changing `shared_preload_libraries` requires a restart of Postgres.
 
@@ -352,12 +350,15 @@ As the pgmq community grows, we'd love to see who is using it. Please send a PR 
 
 Currently, officially using pgmq:
 
-1. [Tembo](https://tembo.io) [[@ChuckHend](https://github.com/ChuckHend)]
+1. [Tembo](https://tembo.io) [[@Tembo-io](https://github.com/tembo-io)]
+2. [Supabase](https://supabase.com) [[@Supabase](https://github.com/supabase)]
+3. [Sprinters](https://sprinters.sh) [[@sprinters-sh](https://github.com/sprinters-sh)]
+4. [pgflow](https://pgflow.dev) [[@pgflow-dev/pgflow](https://github.com/pgflow-dev/pgflow)]
 
 ## ✨ Contributors
 
 Thanks goes to these incredible people:
 
-<a href="https://github.com/tembo-io/pgmq/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=tembo-io/pgmq" />
+<a href="https://github.com/pgmq/pgmq/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=pgmq/pgmq" />
 </a>
